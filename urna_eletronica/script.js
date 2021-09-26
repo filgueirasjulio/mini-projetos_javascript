@@ -41,8 +41,9 @@ function atualizaInterface() {
             return false;
         }
     });
-
+  
     if (candidato.length > 0) {
+      
         candidato = candidato[0];
         seuVotoPara.style.display = 'block';
         aviso.style.display = 'block';
@@ -55,6 +56,10 @@ function atualizaInterface() {
         }
 
         imagensCandidatos.innerHTML = fotosHtml;
+    } else {
+        seuVotoPara.style.display = 'block';
+        aviso.style.display = 'block';
+        descricao.innerHTML = '<div class="aviso--grande">Candidato não encontrado!</div>';
     }
 }
 
