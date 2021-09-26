@@ -85,13 +85,12 @@ function clicou(n) {
 }
 
 function branco() {
-  if (numero === '') {
+    numero = '';
     votoBranco = true;
     seuVotoPara.style.display = 'block';
     aviso.style.display = 'block';
     numeros.innerHTML = '';
     descricao.innerHTML = '<div class="aviso--grande pisca">Voto em branco!</div>';
-  }
 }
 
 function corrige() {
@@ -102,4 +101,4 @@ function confirma() {
     alert("Clicou em CONFIRMA!");
 }
 
-comecarEtapa()
+comecarEtapa();
