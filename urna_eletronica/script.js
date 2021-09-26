@@ -55,7 +55,11 @@ function atualizaInterface() {
         let fotosHtml = '';
 
         for (let i in candidato.fotos) {
-            fotosHtml = `<div class="d-1-image"> <img src="images/${candidato.fotos[i].url}" alt="" />${candidato.fotos[i].legenda} </div>`;
+            if(candidato.fotos[i].small) {
+                fotosHtml += `<div class="d-1-image small"> <img src="images/${candidato.fotos[i].url}" alt="" />${candidato.fotos[i].legenda} </div>`;
+            } else {
+                fotosHtml += `<div class="d-1-image"> <img src="images/${candidato.fotos[i].url}" alt="" />${candidato.fotos[i].legenda} </div>`;
+            }
         }
 
         imagensCandidatos.innerHTML = fotosHtml;
@@ -86,6 +90,7 @@ function clicou(n) {
 
 function branco() {
     numero = '';
+    imagensCandidatos.innerHTML = '';
     votoBranco = true;
     seuVotoPara.style.display = 'block';
     aviso.style.display = 'block';
@@ -98,7 +103,33 @@ function corrige() {
 }
 
 function confirma() {
-    alert("Clicou em CONFIRMA!");
+   let votoConfirmado = false;
+   let etapa = etapas[etapaAtual];
+
+   let candidato = etapa.candidatos.filter((item)=> {
+        if (item.numero === numero) {
+            return true;
+        } else {
+            return false;
+        }
+    });
+
+   if (votoBranco === true) {
+       votoConfirmado = true;
+   } else if(numero.length === etapa.numeros && candidato.length == 0) {
+        alert("Não é possível confirmar um candidato não encontrado");
+   } else if(numero.length === etapa.numeros) {
+       votoConfirmado = true;
+   }
+
+   if (votoConfirmado === true) {
+        etapaAtual ++
+        if (etapas[etapaAtual] != undefined) {
+            comecarEtapa();
+        } else {
+            console.log("FIM");
+        }
+   }
 }
 
 comecarEtapa();
